@@ -1,0 +1,21 @@
+{
+    "name": "converter_web",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "parcel pages/index.html"
+    },
+    "dependencies": {
+        "main.css": "^2.0.0",
+        "normalize.css": "^8.0.1",
+        "sass": "^1.24.0",
+        "vue": "^2.6.11",
+        "vue-hot-reload-api": "^2.3.4"
+    },
+    "devDependencies": {
+        "@vue/component-compiler-utils": "^3.1.0",
+        "parcel-bundler": "^1.12.4",
+        "vue-template-compiler": "^2.6.11"
+    }
+}
