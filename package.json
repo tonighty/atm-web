@@ -6,6 +6,9 @@
     "scripts": {
         "start": "parcel pages/index.html"
     },
+    "browserslist": [
+        "last 1 Chrome version"
+    ],
     "dependencies": {
         "main.css": "^2.0.0",
         "normalize.css": "^8.0.1",

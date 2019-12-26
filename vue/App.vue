@@ -187,6 +187,8 @@
     </div>
 </template>
 <script>
+    import { recordAudio } from '../scripts/audio-recording'
+
     const STEPS = {
         uploadingError: -1,
         uploadingAbort: -2,
@@ -207,6 +209,8 @@
                 currentStep: STEPS.zero,
                 file: null,
                 progress: 0,
+                recordingTime: 0,
+                recorder: null,
                 midiUrl: null,
             }
         },
@@ -230,9 +234,20 @@
             start() {
                 this.currentStep = STEPS.index
             },
-            onRecClick() {
-                if (this.currentStep !== STEPS.recording) this.currentStep = STEPS.recording
-                else this.currentStep = STEPS.index
+            async onRecClick() {
+                if (this.currentStep !== STEPS.recording) {
+                    this.currentStep = STEPS.recording
+
+                    this.recordingTime = 0
+
+                    this.recorder = await recordAudio()
+                    this.recorder.start()
+
+                } else {
+                    this.currentStep = STEPS.index
+                    await this.recorder.stop()
+                    this.recorder.play()
+                }
             },
             onLabelClick(e) {
                 if (this.dropDisabled) e.preventDefault()
@@ -453,6 +468,13 @@
                 flex: 1
                 background-color: var(--accent-color)
                 transition: background-color 0.2s, color 0.2s
+                animation: label-slide-up 0.5s
+
+                @keyframes label-slide-up
+                    0%
+                        transform: translateY(100%)
+                    100%
+                        transform: translateY(0)
 
                 &_disabled,
                 *:not(a):not(button)
@@ -469,11 +491,19 @@
                 display: flex
                 flex-direction: column
                 height: 100%
+                overflow-y: hidden
 
             &__rec-container
                 padding-top: 32px
                 padding-bottom: 64px
                 height: 186px
+                animation: rec-slide-down 0.5s
+
+                @keyframes rec-slide-down
+                    0%
+                        transform: translateY(-100%)
+                    100%
+                        transform: translateY(0)
 
             &__rec
                 height: 90px
@@ -510,10 +540,6 @@
             &__rec-text
                 padding: 0 20px
                 font-size: 22px
-
-
-            &__border
-
 
             &__return
                 font-size: 24px
