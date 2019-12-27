@@ -4,14 +4,13 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "parcel pages/index.html"
+        "start": "parcel pages/index.html",
+        "build": "parcel build pages/index.html"
     },
     "browserslist": [
         "last 1 Chrome version"
     ],
     "dependencies": {
-        "main.css": "^2.0.0",
-        "normalize.css": "^8.0.1",
         "sass": "^1.24.0",
         "vue": "^2.6.11",
         "vue-hot-reload-api": "^2.3.4"
